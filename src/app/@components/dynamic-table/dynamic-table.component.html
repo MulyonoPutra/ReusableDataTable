@@ -1,0 +1,55 @@
+<ng-container>
+
+  <!-- Filter -->
+  <ng-container *ngIf="isFilterable" [matColumnDef]="this.rowActionIcon">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="filter">
+    </mat-form-field>
+  </ng-container>
+
+  <!-- Table -->
+  <mat-table [dataSource]="tableDataSource" matSort
+    (matSortChange)="sortTable($event)">
+
+    <!-- action column -->
+    <ng-container *ngIf="rowActionIcon?.length" [matColumnDef]="rowActionIcon">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element" [id]="rowActionIcon"
+        (click)="emitRowAction(element)">
+        <button mat-button>
+          <mat-icon>{{rowActionIcon}}</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <ng-container *ngFor="let tableColumn of tableColumns"
+      [matColumnDef]="tableColumn.name">
+
+      <!-- if sortable column header -->
+      <ng-container *ngIf="tableColumn.isSortable; else notSortable">
+        <mat-header-cell *matHeaderCellDef
+          [mat-sort-header]="tableColumn.name"
+          [arrowPosition]="tableColumn.position === 'right' ? 'before' :
+          'after'">
+          {{tableColumn.name}}
+        </mat-header-cell>
+      </ng-container>
+      <!-- else not sortable -->
+      <ng-template #notSortable>
+        <mat-header-cell *matHeaderCellDef
+          [class.text-right]="tableColumn.position == 'right'">
+          {{tableColumn.name}}
+        </mat-header-cell>
+      </ng-template>
+
+      <!-- column data -->
+      <mat-cell *matCellDef="let element"
+        [class.text-right]="tableColumn.position == 'right'">
+        {{element | dataPropertyGetter: tableColumn.dataKey}}
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+</ng-container>

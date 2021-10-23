@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  PROJECT_URL:
+    'https://my-json-server.typicode.com/mp-fe/MockProjectOngoingList/db',
+
+  PROJECT_STATUS: 'https://my-json-server.typicode.com/mp-fe/project-status/db',
 };
 
 /*
