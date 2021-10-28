@@ -21,6 +21,7 @@ import { DataPropertyGetterPipe } from './pipes/data-property-getter.pipe';
 import { ProjectsService } from './services/projects.service';
 import { ProjectStatusService } from './services/project-status.service';
 import { HttpClientModule } from '@angular/common/http';
+import { PostsComponent } from './pages/posts/posts.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     ProjectStatusComponent,
     DynamicTableComponent,
     DataPropertyGetterPipe,
+    PostsComponent,
   ],
   imports: [
     BrowserModule,
